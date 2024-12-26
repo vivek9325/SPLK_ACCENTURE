@@ -21,3 +21,10 @@ timechart ----
 
 index="vk_idx" sourcetype="csv" 
 |timechart count by current_ticket_state
+
+
+index="vk_idx" sourcetype="csv" 
+| table _time, severity, time_submitted 
+| eval time_submitted_epoc = strptime(time_submitted, "%d-%m-%y %H:%M") 
+| eval _time = time_submitted_epoc 
+| timechart span=1mon count by severity
