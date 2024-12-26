@@ -15,3 +15,9 @@ Chart ---
 
 index="vk_idx" sourcetype="csv" 
 |chart count by current_ticket_state, severity
+
+
+timechart ----
+
+index="vk_idx" sourcetype="csv" 
+|timechart count by current_ticket_state
