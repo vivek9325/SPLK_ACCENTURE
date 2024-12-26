@@ -1,3 +1,13 @@
 If- Else Statement -------------
 
 index="vk_idx" sourcetype="csv" |dedup severity|table severity | eval state=if(severity<3,"High","Low") | sort severity
+
+
+Case statement ----
+
+index="vk_idx" sourcetype="csv" 
+| dedup severity 
+| table severity 
+| eval state=case(severity=1,"Critical", severity=2, "High", severity=3, "Low",1=1, "info")
+| sort severity
+
