@@ -44,3 +44,11 @@ Geo Map -----
 
 index="vk_idx" sourcetype="csv" source="vendors.csv" 
 | geostats latfield=VendorLatitude longfield=VendorLongitude count by Vendor
+
+Addcoltotal ----
+
+index="vk_idx" source="Sample_tickets.csv" 
+| chart count by current_ticket_state, severity 
+| addcoltotals label=total labelfield=current_ticket_state
+
+
