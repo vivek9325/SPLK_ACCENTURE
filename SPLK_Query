@@ -38,3 +38,9 @@ index="vk_idx" sourcetype="csv"
 
 index="vk_idx" sourcetype="csv" 
 |timechart count
+
+
+Geo Map -----
+
+index="vk_idx" sourcetype="csv" source="vendors.csv" 
+| geostats latfield=VendorLatitude longfield=VendorLongitude count by Vendor
