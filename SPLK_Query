@@ -73,3 +73,8 @@ source="data.txt" index="vk_idx" sourcetype="vk_txt" | rex field=_raw "From:\s+<
 | makeresults 
 | eval text="Vk;search;savedsearch" 
 | rex field=text "(?P<username>\w+);(?P<appname>\w+);(?P<savedsearch>\w+)"
+
+
+| makeresults 
+| eval credit_card_number = "1234-5678-9101-1213" 
+| rex field=credit_card_number "(?P<digit>\d{4})" max_match=0
