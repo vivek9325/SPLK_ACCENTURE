@@ -67,3 +67,5 @@ https://regex101.com/
 https://www.debuggex.com/cheatsheet/regex/pcre
 
 source="data.txt" index="vk_idx" sourcetype="vk_txt" | rex field=_raw "From:\s+<(?P<from_id>.*)>\s+To" | table from_id, _raw
+
+source="data.txt" index="vk_idx" sourcetype="vk_txt" | rex field=_raw "From:\s+<(?P<from_id>.*)>\s+To:\s+<(?P<to_id>.*)>" | table from_id, to_id, _raw
