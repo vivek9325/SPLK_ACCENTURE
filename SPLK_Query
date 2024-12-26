@@ -52,3 +52,11 @@ index="vk_idx" source="Sample_tickets.csv"
 | addcoltotals label=total labelfield=current_ticket_state
 
 
+Addtotals ----
+
+index="vk_idx" source="Sample_tickets.csv" 
+| chart count by current_ticket_state, severity 
+| addcoltotals label=total labelfield=current_ticket_state 
+| addtotals fieldname=sum
+
+
