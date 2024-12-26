@@ -11,3 +11,7 @@ index="vk_idx" sourcetype="csv"
 | eval state=case(severity=1,"Critical", severity=2, "High", severity=3, "Low",1=1, "info")
 | sort severity
 
+Chart ---
+
+index="vk_idx" sourcetype="csv" 
+|chart count by current_ticket_state, severity
