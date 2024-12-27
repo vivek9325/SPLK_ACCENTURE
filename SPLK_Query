@@ -130,3 +130,8 @@ Push Data in kvstore --
 Unique key in kvstore -----
 
 |inputlookup vk_kvstore1 | eval key = _key
+
+datamodel ---
+
+|datamodel vk_dm vk_ssc search
+
