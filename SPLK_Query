@@ -107,3 +107,22 @@ append is false
 | search ticket_number = "INC000020793173" 
 | eval time_taken="100hrs" 
 | outputlookup vk_sample_lookup.csv append=true
+
+KVStore Lookup ----
+
+
+[ec2-user@ip-172-31-34-193 local]$ cat collections.conf
+[vk_kvstore]
+field.id = number
+field.name = string
+enforceType = false
+accelerated_fields.myaccl = {"id" : 1}
+
+
+Push Data in kvstore --
+
+
+| makeresults 
+| eval id = 1, name="Vivek" 
+| fields - _time 
+| outputlookup vk_kvstore1
