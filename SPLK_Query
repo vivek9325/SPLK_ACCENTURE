@@ -126,3 +126,7 @@ Push Data in kvstore --
 | eval id = 1, name="Vivek" 
 | fields - _time 
 | outputlookup vk_kvstore1
+
+Unique key in kvstore -----
+
+|inputlookup vk_kvstore1 | eval key = _key
