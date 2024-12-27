@@ -111,7 +111,7 @@ append is false
 KVStore Lookup ----
 
 
-[ec2-user@ip-172-31-34-193 local]$ cat collections.conf
+[ec2-user@ip-172-X-X-193 local]$ cat collections.conf
 [vk_kvstore]
 field.id = number
 field.name = string
