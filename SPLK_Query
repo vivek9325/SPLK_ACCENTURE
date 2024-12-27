@@ -91,3 +91,19 @@ Combine data from index and lookup file ----
 index=vk_idx source="sample_tickets.csv" 
 | table ticket_number,severity, current_ticket_state 
 | lookup vk_sample_lookup.csv ticket_number OUTPUT time_taken as time_consumed
+
+outputlookup command ----
+
+append is true ----
+
+| inputlookup vk_sample_lookup.csv 
+| search ticket_number = "INC000020793173" 
+| eval time_taken="100hrs" 
+| outputlookup vk_sample_lookup.csv append=false
+
+append is false
+
+| inputlookup vk_sample_lookup.csv 
+| search ticket_number = "INC000020793173" 
+| eval time_taken="100hrs" 
+| outputlookup vk_sample_lookup.csv append=true
