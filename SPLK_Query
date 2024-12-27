@@ -78,3 +78,16 @@ source="data.txt" index="vk_idx" sourcetype="vk_txt" | rex field=_raw "From:\s+<
 | makeresults 
 | eval credit_card_number = "1234-5678-9101-1213" 
 | rex field=credit_card_number "(?P<digit>\d{4})" max_match=0
+
+
+
+Lookup ----
+
+See the data in lookup --
+|inputlookup vk_sample_lookup.csv
+
+Combine data from index and lookup file ----
+
+index=vk_idx source="sample_tickets.csv" 
+| table ticket_number,severity, current_ticket_state 
+| lookup vk_sample_lookup.csv ticket_number OUTPUT time_taken as time_consumed
