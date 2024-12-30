@@ -178,3 +178,10 @@ index=main source="sample_tickets.csv"
     | table ticket_number, time_taken]
 
 
+Left Join -----
+
+index=main source="sample_tickets.csv" 
+|  table ticket_number, severity, current_ticket_state
+| join type=left ticket_number 
+    [search index=vk_idx source=sample_lookup.csv ticket_number="INC000020793217"
+    | table ticket_number, time_taken]
