@@ -163,3 +163,6 @@ index="vk_idx" sourcetype="vk_xml" source="test_xml.txt" | spath path=purchases.
  
 index="vk_idx" sourcetype="vk_xml" source="test_xml.txt" | spath path=purchases.book.title{@yearPublished} output=yearPublished
  
+index="vk_idx" sourcetype="vk_xml" source="mixed_json_unstructured.json" 
+| rex field=_raw "xyz-\s+(?P<json_field>.*)" 
+| spath input=json_field path={}.timestamp output=time
