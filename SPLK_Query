@@ -185,3 +185,25 @@ index=main source="sample_tickets.csv"
 | join type=left ticket_number 
     [search index=vk_idx source=sample_lookup.csv ticket_number="INC000020793217"
     | table ticket_number, time_taken]
+
+
+Append/Appendcols/Appendpipe ----
+
+Append ---
+
+index=main source="sample_tickets.csv" 
+|  table ticket_number, severity, current_ticket_state
+| appendc
+    [search index=vk_idx source=sample_lookup.csv 
+    |  table ticket_number, time_taken 
+    |  rename ticket_number as incident_number, time_taken as time_consumed]
+
+Appendcols ---
+
+index=main source="sample_tickets.csv" 
+|  table ticket_number, severity, current_ticket_state
+| appendcols
+    [search index=vk_idx source=sample_lookup.csv 
+    |  table ticket_number, time_taken 
+    |  rename ticket_number as incident_number, time_taken as time_consumed]
+
