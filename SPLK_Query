@@ -166,3 +166,15 @@ index="vk_idx" sourcetype="vk_xml" source="test_xml.txt" | spath path=purchases.
 index="vk_idx" sourcetype="vk_xml" source="mixed_json_unstructured.json" 
 | rex field=_raw "xyz-\s+(?P<json_field>.*)" 
 | spath input=json_field path={}.timestamp output=time
+
+Join ----
+
+Inner Join ---
+
+index=main source="sample_tickets.csv" 
+|  table ticket_number, severity, current_ticket_state
+| join type=inner ticket_number 
+    [search index=vk_idx source=sample_lookup.csv 
+    | table ticket_number, time_taken]
+
+
