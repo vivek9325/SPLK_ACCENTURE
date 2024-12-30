@@ -131,7 +131,35 @@ Unique key in kvstore -----
 
 |inputlookup vk_kvstore1 | eval key = _key
 
+
+
 datamodel ---
 
 |datamodel vk_dm vk_ssc search
 
+
+
+transaction commands ----
+
+source="tutorialdata.zip:*" host="ip-172-XX-XX-194.ap-south-1.compute.internal" index="vk_idx" | transaction JSESSIONID, clientip
+ 
+source="tutorialdata.zip:*" host="ip-172-XX-XX-194.ap-south-1.compute.internal" index="vk_idx" 
+
+| transaction JSESSIONID, clientip 
+
+| highlight action
+ 
+source="tutorialdata.zip:*" host="ip-172-XX-XX-194.ap-south-1.compute.internal" index="vk_idx" 
+
+| transaction JSESSIONID, clientip maxevents=4 maxpause=2s maxspan=5s
+
+| highlight action
+
+
+Spath Commands -----
+
+ 
+index="vk_idx" sourcetype="vk_xml" source="test_xml.txt" | spath path=purchases.book.author output=author
+ 
+index="vk_idx" sourcetype="vk_xml" source="test_xml.txt" | spath path=purchases.book.title{@yearPublished} output=yearPublished
+ 
