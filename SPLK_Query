@@ -207,3 +207,11 @@ index=main source="sample_tickets.csv"
     |  table ticket_number, time_taken 
     |  rename ticket_number as incident_number, time_taken as time_consumed]
 
+Appendpipe ---
+
+index=main source="sample_tickets.csv" 
+| stats count by severity, current_ticket_state 
+| appendpipe 
+    [| stats sum(count) as count by severity 
+    | eval current_ticket_state = "Sum of Event Severity wise"]
+| sort severity
