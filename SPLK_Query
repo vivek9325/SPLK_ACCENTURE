@@ -236,3 +236,7 @@ index=main source="Sample_tickets.csv"
 | stats count by asset_id, current_ticket_state 
 | collect index=vk_summary testmode=true marker="search_name=asset"
 
+Eventstats ----
+
+index=main source="Sample_tickets.csv"
+| eventstats count by severity
