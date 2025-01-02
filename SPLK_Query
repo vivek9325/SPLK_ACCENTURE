@@ -215,3 +215,24 @@ index=main source="sample_tickets.csv"
     [| stats sum(count) as count by severity 
     | eval current_ticket_state = "Sum of Event Severity wise"]
 | sort severity
+
+
+Summary Index ----
+
+index=main source="Sample_tickets.csv" 
+| stats count by asset_id, current_ticket_state 
+| collect index=vk_summary testmode=false
+
+index=main source="Sample_tickets.csv" 
+| stats count by asset_id, current_ticket_state 
+| collect index=vk_summary testmode=true
+
+index=main source="Sample_tickets.csv" 
+| stats count by asset_id, current_ticket_state 
+| collect index=vk_summary testmode=false marker="search_name=asset"
+
+
+index=main source="Sample_tickets.csv" 
+| stats count by asset_id, current_ticket_state 
+| collect index=vk_summary testmode=true marker="search_name=asset"
+
