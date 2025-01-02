@@ -1,0 +1,280 @@
+{
+    "title": "vk_studio_dashboard",
+    "description": "",
+    "inputs": {
+        "input_CIzF3UKV": {
+            "context": {
+                "formattedConfig": {
+                    "number": {
+                        "prefix": ""
+                    }
+                },
+                "formattedStatics": ">statics | formatByType(formattedConfig)",
+                "label": ">primary | seriesByName(\"current_ticket_state\") | renameSeries(\"label\") | formatByType(formattedConfig)",
+                "statics": [
+                    [
+                        "All"
+                    ],
+                    [
+                        "*"
+                    ]
+                ],
+                "value": ">primary | seriesByName(\"current_ticket_state\") | renameSeries(\"value\") | formatByType(formattedConfig)"
+            },
+            "dataSources": {
+                "primary": "ds_5Nso0o7x"
+            },
+            "options": {
+                "defaultValue": "*",
+                "items": ">frame(label, value) | prepend(formattedStatics) | objects()",
+                "token": "dd_iBu0QtzV"
+            },
+            "title": "Ticket State",
+            "type": "input.dropdown"
+        },
+        "input_global_trp": {
+            "options": {
+                "defaultValue": "-24h@h,now",
+                "token": "global_time"
+            },
+            "title": "Global Time Range",
+            "type": "input.timerange"
+        }
+    },
+    "defaults": {
+        "dataSources": {
+            "ds.search": {
+                "options": {
+                    "queryParameters": {
+                        "earliest": "$global_time.earliest$",
+                        "latest": "$global_time.latest$"
+                    }
+                }
+            }
+        }
+    },
+    "visualizations": {
+        "viz_g1TiCQsY": {
+            "containerOptions": {
+                "visibility": {}
+            },
+            "cornerRadius": [
+                6,
+                0,
+                0,
+                0
+            ],
+            "dataSources": {
+                "primary": "ds_jpIPUBe1"
+            },
+            "eventHandlers": [
+                {
+                    "options": {
+                        "tabId": "layout_genw7h3K"
+                    },
+                    "type": "drilldown.switchToTab"
+                }
+            ],
+            "options": {
+                "areaOpacity": 0.92,
+                "backgroundColor": "#f8be34",
+                "dataValuesDisplay": "all",
+                "legendDisplay": "top",
+                "yAxisScale": "log"
+            },
+            "title": "Severity Count",
+            "type": "splunk.area"
+        },
+        "viz_pF2MbtDC": {
+            "dataSources": {
+                "primary": "ds_5Nso0o7x"
+            },
+            "title": "Ticket state",
+            "type": "splunk.column"
+        },
+        "viz_tE3XEtka": {
+            "dataSources": {
+                "primary": "ds_Z80IgN8b"
+            },
+            "options": {
+                "backgroundColor": "#000000",
+                "center": [
+                    66.0915430409695,
+                    -49.60798704193019
+                ],
+                "layers": [
+                    {
+                        "latitude": "> primary | seriesByName('latitude')",
+                        "seriesColors": [
+                            "#7B56DB",
+                            "#009CEB",
+                            "#00CDAF",
+                            "#DD9900",
+                            "#FF677B",
+                            "#CB2196",
+                            "#813193",
+                            "#0051B5",
+                            "#008C80",
+                            "#99B100",
+                            "#FFA476",
+                            "#FF6ACE",
+                            "#AE8CFF",
+                            "#00689D",
+                            "#00490A",
+                            "#465D00",
+                            "#9D6300",
+                            "#F6540B",
+                            "#FF969E",
+                            "#E47BFE"
+                        ]
+                    }
+                ],
+                "zoom": 0.597986693792285
+            },
+            "type": "splunk.map"
+        }
+    },
+    "dataSources": {
+        "ds_5Nso0o7x": {
+            "name": "state",
+            "options": {
+                "extend": "ds_yCN3PEnL",
+                "query": "| stats count by current_ticket_state"
+            },
+            "type": "ds.chain"
+        },
+        "ds_9Yxj1pvE": {
+            "name": "base_search2",
+            "options": {
+                "query": "index=main source=vendors.csv \n| table VendorLatitude, VendorLongitude, Vendor",
+                "queryParameters": {
+                    "earliest": "0",
+                    "latest": ""
+                }
+            },
+            "type": "ds.search"
+        },
+        "ds_Ih3xerPw": {
+            "name": "severity",
+            "options": {
+                "extend": "ds_iXmdBw7p",
+                "query": "| stats count by severity"
+            },
+            "type": "ds.chain"
+        },
+        "ds_Z80IgN8b": {
+            "name": "Search_1",
+            "options": {
+                "extend": "ds_9Yxj1pvE",
+                "query": "| geostats count by Vendor latField=VendorLatitude, longField=VendorLongitude"
+            },
+            "type": "ds.chain"
+        },
+        "ds_iXmdBw7p": {
+            "name": "base_search1",
+            "options": {
+                "query": "index=main source=Sample_tickets.csv \n|  stats count by severity, current_ticket_state",
+                "queryParameters": {
+                    "earliest": "0",
+                    "latest": ""
+                }
+            },
+            "type": "ds.search"
+        },
+        "ds_jpIPUBe1": {
+            "name": "Search_2",
+            "options": {
+                "extend": "ds_iXmdBw7p",
+                "query": "| search current_ticket_state=\"$dd_iBu0QtzV$\" \n| stats count by severity"
+            },
+            "type": "ds.chain"
+        },
+        "ds_yCN3PEnL": {
+            "name": "vk_savedsearch",
+            "options": {
+                "app": "search",
+                "ref": "vk_savedsearch"
+            },
+            "type": "ds.savedSearch"
+        }
+    },
+    "layout": {
+        "globalInputs": [
+            "input_global_trp",
+            "input_CIzF3UKV"
+        ],
+        "layoutDefinitions": {
+            "layout_1": {
+                "options": {
+                    "backgroundImage": {
+                        "sizeType": "contain",
+                        "src": "splunk-enterprise-kvstore://677663ae8d3c75866509b0f8",
+                        "x": 0,
+                        "y": 0
+                    },
+                    "display": "auto",
+                    "height": 960,
+                    "width": 1440
+                },
+                "structure": [],
+                "type": "absolute"
+            },
+            "layout_H4UdOuYB": {
+                "structure": [
+                    {
+                        "item": "viz_g1TiCQsY",
+                        "position": {
+                            "h": 400,
+                            "w": 1200,
+                            "x": 0,
+                            "y": 0
+                        },
+                        "type": "block"
+                    },
+                    {
+                        "item": "viz_pF2MbtDC",
+                        "position": {
+                            "h": 271,
+                            "w": 1200,
+                            "x": 0,
+                            "y": 400
+                        },
+                        "type": "block"
+                    },
+                    {
+                        "item": "viz_tE3XEtka",
+                        "position": {
+                            "h": 400,
+                            "w": 1200,
+                            "x": 0,
+                            "y": 671
+                        },
+                        "type": "block"
+                    }
+                ],
+                "type": "grid"
+            },
+            "layout_genw7h3K": {
+                "structure": [],
+                "type": "grid"
+            }
+        },
+        "options": {},
+        "tabs": {
+            "items": [
+                {
+                    "label": "New tab",
+                    "layoutId": "layout_1"
+                },
+                {
+                    "label": "Severity",
+                    "layoutId": "layout_H4UdOuYB"
+                },
+                {
+                    "label": "New tab",
+                    "layoutId": "layout_genw7h3K"
+                }
+            ]
+        }
+    }
+}
