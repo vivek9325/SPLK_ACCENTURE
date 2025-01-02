@@ -246,3 +246,12 @@ Stramstats ---
 
 | makeresults count=3
 | streamstats count
+
+MultiKv ---
+
+index="main" sourcetype="vk_multikv" 
+|  multikv forceheader=2
+
+index="main" sourcetype="vk_multikv" 
+|  multikv noheader=t
+
