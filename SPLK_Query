@@ -255,3 +255,9 @@ index="main" sourcetype="vk_multikv"
 index="main" sourcetype="vk_multikv" 
 |  multikv noheader=t
 
+Working with MV Command ---
+
+index="main" sourcetype="csv" source="data.csv" 
+|table "first name", "last name", occupation, salary 
+| eval field1 = mvappend("first name", "last name", occupation, salary)
+
