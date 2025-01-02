@@ -240,3 +240,9 @@ Eventstats ----
 
 index=main source="Sample_tickets.csv"
 | eventstats count by severity
+
+
+Stramstats ---
+
+| makeresults count=3
+| streamstats count
