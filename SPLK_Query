@@ -261,3 +261,8 @@ index="main" sourcetype="csv" source="data.csv"
 |table "first name", "last name", occupation, salary 
 | eval field1 = mvappend("first name", "last name", occupation, salary)
 
+index="main" sourcetype="csv" source="data.csv" 
+|table "first name", "last name", occupation, salary 
+| eval field1 = mvappend("first name", "last name", occupation, salary)
+| eval count_mv = mvcount(field1)
+| eval count2 = mvcount("first name")
