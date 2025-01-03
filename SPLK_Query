@@ -266,3 +266,15 @@ index="main" sourcetype="csv" source="data.csv"
 | eval field1 = mvappend("first name", "last name", occupation, salary)
 | eval count_mv = mvcount(field1)
 | eval count2 = mvcount("first name")
+
+
+EventBreaking ----------
+
+[ __auto__learned__ ]
+SHOULD_LINEMERGE=true
+LINE_BREAKER=([\r\n]*)<messages>
+NO_BINARY_CHECK=true
+MUST_BREAK_AFTER=</messages>
+BREAK_ONLY_BEFORE=<messages>
+
+
