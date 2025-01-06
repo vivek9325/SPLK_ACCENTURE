@@ -382,3 +382,8 @@ BREAK_ONLY_BEFORE=([\r\n]*)<messages>
 TRANSFORMS-demoExtraction = xmlExtraction3
 SEDCMD-anonymizecarddate = "s/(\d{4}-){3}/XXXX-XXXX-XXXX-/g"
 
+Diag Report ---
+
+./splunk diag
+
+./splunk diag --exclude ../var/log/splunk/metrics.log , ../etc/system/default/server.conf
