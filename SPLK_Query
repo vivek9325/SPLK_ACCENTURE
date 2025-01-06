@@ -367,3 +367,18 @@ Masking Search Time ----
 | makeresults 
 | eval credit_card_number="1234-5678-9101-1213" 
 | rex field=credit_card_number mode=sed "y/1234/XXXX/"
+
+index time Masking ----
+
+
+[vk_xml3]
+SHOULD_LINEMERGE=true
+LINE_BREAKER=([\r\n]*)<messages>
+NO_BINARY_CHECK=true
+category = Custom
+pulldown_type = true
+MUST_BREAK_AFTER=</messages>
+BREAK_ONLY_BEFORE=([\r\n]*)<messages>
+TRANSFORMS-demoExtraction = xmlExtraction3
+SEDCMD-anonymizecarddate = "s/(\d{4}-){3}/XXXX-XXXX-XXXX-/g"
+
