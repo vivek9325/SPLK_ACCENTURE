@@ -312,3 +312,22 @@ TIME_PREFIX=GMT
 MAX_TIMESTAMP_LOOKAHEAD=24
 MAX_DAYS_AGO=5000
 MAX_DAYS_HENCE=10
+
+Index time field extraction ----
+
+[ec2-user@ip-172-XX-XX-6 local]$ cat transforms.conf
+[xmlExtraction]
+REGEX = <level>(?P<level>.*)<\/level><thread>(?P<thread>.*)<\/thread><location>(?P<location>.*)<\/location><msgKeyClass>(?P<msgkeyclass>.*)<\/msgKeyClass>
+FORMAT = level::$1 thread::$2 location::$3 msgKeyClass::$4
+WRITE_META = true
+
+[ec2-user@ip-172-XX-XX-6 local]$ cat props.conf
+
+[vk_xml1]
+SHOULD_LINEMERGE=true
+LINE_BREAKER=([\r\n]*)<messages>
+NO_BINARY_CHECK=true
+MUST_BREAK_AFTER=</messages>
+BREAK_ONLY_BEFORE=([\r\n]*)<messages>
+TRANSFORMS-demoExtraction = xmlExtraction
+[ec2-user@ip-172-31-32-6 local]$
