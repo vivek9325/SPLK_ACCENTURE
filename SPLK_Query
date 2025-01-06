@@ -331,3 +331,21 @@ MUST_BREAK_AFTER=</messages>
 BREAK_ONLY_BEFORE=([\r\n]*)<messages>
 TRANSFORMS-demoExtraction = xmlExtraction
 [ec2-user@ip-172-31-32-6 local]$
+
+
+
+[vk_xml2]
+SHOULD_LINEMERGE=true
+LINE_BREAKER=([\r\n]*)<messages>
+NO_BINARY_CHECK=true
+MUST_BREAK_AFTER=</messages>
+BREAK_ONLY_BEFORE=([\r\n]*)<messages>
+TRANSFORMS-demoExtraction = xmlExtraction1
+
+
+
+[xmlExtraction1]
+REGEX = <level>(?P<level>.*)<\/level><thread>(?P<thread>.*)<\/thread><location>(?P<location>.*)<\/location><msgKeyClass>(?P<msgkeyclass>.*)<\/msgKeyClass>
+FORMAT = level::$1 thread::$2 location::$3 msgKeyClass::$4
+WRITE_META = true
+INGEST_EVAL = event_category=if(_raw LIKE "%backup%", "backup start", "")
