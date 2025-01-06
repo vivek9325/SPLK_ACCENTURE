@@ -349,3 +349,12 @@ REGEX = <level>(?P<level>.*)<\/level><thread>(?P<thread>.*)<\/thread><location>(
 FORMAT = level::$1 thread::$2 location::$3 msgKeyClass::$4
 WRITE_META = true
 INGEST_EVAL = event_category=if(_raw LIKE "%backup%", "backup start", "")
+
+
+
+[xmlExtraction3]
+REGEX = <level>(?P<level>.*)<\/level><thread>(?P<thread>.*)<\/thread><location>(?P<location>.*)<\/location><msgKeyClass>(?P<msgkeyclass>.*)<\/msgKeyClass>
+FORMAT = level::$1 thread::$2 location::$3 msgKeyClass::$4
+WRITE_META = true
+INGEST_EVAL = event_category=if(_raw LIKE "%backup%", "backup start", ""), event_category=event_category."some string", mv_field=mvjoin(event_category,",")
+
