@@ -358,3 +358,8 @@ FORMAT = level::$1 thread::$2 location::$3 msgKeyClass::$4
 WRITE_META = true
 INGEST_EVAL = event_category=if(_raw LIKE "%backup%", "backup start", ""), event_category=event_category."some string", mv_field=mvjoin(event_category,",")
 
+Masking Search Time ----
+
+| makeresults 
+| eval credit_card_number="1234-5678-9101-1213" 
+| rex field=credit_card_number mode=sed "s/(\d{4}-){3}/XXXX-XXXX-XXXX-/g"
